@@ -73,7 +73,12 @@ class _CharacterScreenState extends State<CharactersScreen> {
                       return ListTile(
                         leading: Image.network(character.image),
                         title: Text(character.name),
-                        subtitle: Text(character.house),
+                        subtitle: Row(
+                          children: [
+                            Text(character.house),
+                            Text(" ${character.varita.wood}, ${character.varita.core}, ${character.varita.length}")
+                          ],
+                        )
                       );
                     },
                   );
