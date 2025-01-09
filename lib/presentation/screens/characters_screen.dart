@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_counter_block/presentation/blocs/characters/characters_bloc.dart';
 import 'package:flutter_counter_block/presentation/blocs/characters/characters_event.dart';
 import 'package:flutter_counter_block/presentation/blocs/characters/characters_state.dart';
+import 'package:flutter_counter_block/presentation/blocs/login/login_bloc.dart';
+import 'package:flutter_counter_block/presentation/blocs/login/login_event.dart';
+import 'package:go_router/go_router.dart';
 
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({super.key});
@@ -21,7 +24,18 @@ class _CharacterScreenState extends State<CharactersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Personajes de Harry Potter')),
+      appBar: AppBar(
+        title: const Text('Personajes de Harry Potter'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            onPressed: () {
+              context.read<LoginBloc>().add(LogoutButtonPressed());
+              context.go('/login');
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Padding(
@@ -71,15 +85,15 @@ class _CharacterScreenState extends State<CharactersScreen> {
                     itemBuilder: (context, index) {
                       final character = state.characters[index];
                       return ListTile(
-                        leading: Image.network(character.image),
-                        title: Text(character.name),
-                        subtitle: Row(
-                          children: [
-                            Text(character.house),
-                            Text(" ${character.varita.wood}, ${character.varita.core}, ${character.varita.length}")
-                          ],
-                        )
-                      );
+                          leading: Image.network(character.image),
+                          title: Text(character.name),
+                          subtitle: Row(
+                            children: [
+                              Text(character.house),
+                              Text(
+                                  " ${character.varita.wood}, ${character.varita.core}, ${character.varita.length}")
+                            ],
+                          ));
                     },
                   );
                 }

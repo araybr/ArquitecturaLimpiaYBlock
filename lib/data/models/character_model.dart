@@ -1,5 +1,5 @@
 import 'package:flutter_counter_block/data/models/varita_model.dart';
-import 'package:flutter_counter_block/domain/entities/varita.dart';
+
 
 class CharacterModel {
   final String name;
